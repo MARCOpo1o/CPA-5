@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { useContext } from 'react';
 import { Button, View, Text, StyleSheet, Image, TextInput } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -12,6 +12,61 @@ function ProfileScreen({ navigation }) {
   const [number, onChangeNumber] = useState(null);
   const [num2, onChangeNumber2] = useState(null);
   const myContext = useContext(AppContext);
+  const [info, setInfo] = useState({name:'',email:''});
+  const [name, setName] = useState('');
+  const [email,setEmail] = useState('')
+
+  useEffect(() => {getData()}
+  ,[])
+
+  const getData = async () => {
+    try {
+      // the '@profile_info' can be any string
+      const jsonValue = await AsyncStorage.getItem('@profile_info')
+      let data = null
+      if (jsonValue!=null) {
+        data = JSON.parse(jsonValue)
+        setInfo(data)
+        setName(data.name)
+        setEmail(data.email)
+        console.log('just set Info, Name and Email')
+      } else {
+        console.log('just read a null value from Storage')
+        setInfo({})
+        setName("")
+        setEmail("")
+      }
+
+
+    } catch(e) {
+      console.log("error in getData ")
+      console.dir(e)
+      // error reading value
+    }
+}
+const storeData = async (value) => {
+  try {
+    const jsonValue = JSON.stringify(value)
+    await AsyncStorage.setItem('@profile_info', jsonValue)
+    console.log('just stored '+jsonValue)
+  } catch (e) {
+    console.log("error in storeData ")
+    console.dir(e)
+    // saving error
+  }
+}
+
+const clearAll = async () => {
+  try {
+    console.log('in clearData')
+    await AsyncStorage.clear()
+  } catch(e) {
+    console.log("error in clearData ")
+    console.dir(e)
+    // clear error
+  }
+}
+
   return (
     <View>
         <Image style={styles.headerBackground} source={require('../img/headerbg.jpeg')}/>
@@ -34,6 +89,12 @@ function ProfileScreen({ navigation }) {
         placeholder="Description"
         keyboardType="numeric"
       />
+      <TextInput
+          style={styles.textinput}
+          placeholder="email"
+          onChangeText={text => {setEmail(text)}}
+          value={email}
+        />
       <Button
         title="Go to Details"
         onPress={() => navigation.navigate('Details')}
@@ -81,7 +142,11 @@ const styles = StyleSheet.create({
     color: '#0394c0',
     fontWeight: '300',
     fontStyle: 'italic'
-  }
+  },
+  textinput:{
+    margin:20,
+    fontSize:20
+  },
 });
 
 export default ProfileScreen;
