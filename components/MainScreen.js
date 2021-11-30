@@ -11,6 +11,12 @@ function MainScreen({ navigation }) {
       This is now the main screen my guy
       </Text>
       <Button
+  onPress={() => {
+    alert('You tapped the button!');
+  }}
+  title="Press Me"
+/>
+      <Button
         title="Go to artists"
         onPress={() => navigation.navigate('Artists')}
       />
