@@ -9,6 +9,7 @@ This is the screen where you are able to see all the musicans listed
 This is the screen where you can see your profile
 ![Screenshot](/Screenshots/ProfileScreenSS.png)
 
+Video link: https://drive.google.com/file/d/1Cf-WTlavHsFU7OdHEhTgvVWwpXGtlkCj/view?usp=sharing
 
 
 Developer Notes:
