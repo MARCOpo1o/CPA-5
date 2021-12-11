@@ -8,13 +8,13 @@ function MainScreen({ navigation }) {
     
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>
-      This is now the main screen my guy
+      Welcome to my app
       </Text>
       <Button
   onPress={() => {
-    alert('You tapped the button!');
+    alert('More components will be added');
   }}
-  title="Press Me"
+  title="Press here for more"
 />
       <Button
         title="Go to artists"
